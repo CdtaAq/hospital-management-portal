@@ -1,13 +1,21 @@
 package com.example.hospital.service;
 
-import com.example.hospital.model.*;
-import com.example.hospital.repository.*;
+import com.example.hospital.model.Appointment;
+import com.example.hospital.model.Doctor;
+import com.example.hospital.model.DoctorAvailability;
+import com.example.hospital.model.Patient;
+import com.example.hospital.repository.AppointmentRepository;
+import com.example.hospital.repository.DoctorAvailabilityRepository;
+import com.example.hospital.repository.DoctorRepository;
+import com.example.hospital.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +40,7 @@ public class AppointmentService {
         boolean isAvailable = availabilities.stream().anyMatch(av -> {
             boolean sameDay = av.getDayOfWeek().equals(startTime.getDayOfWeek());
             boolean withinTime = !startTime.toLocalTime().isBefore(av.getStartTime())
-                                && !startTime.toLocalTime().isAfter(av.getEndTime());
+                    && !startTime.toLocalTime().isAfter(av.getEndTime());
             return sameDay && withinTime && av.getAvailable();
         });
 
@@ -69,7 +77,6 @@ public class AppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
-        // Cancel old slot and try to schedule new one
         appointment.setStatus("RESCHEDULED");
         appointment.setStartTime(newTime);
 
@@ -87,5 +94,35 @@ public class AppointmentService {
 
         System.out.println("Notification: Appointment cancelled for patient "
                 + appointment.getPatient().getName());
+    }
+
+    // --- 🔑 Additional helper methods ---
+
+    public List<Appointment> getAppointmentsByPatient(Long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
+    }
+
+    public List<Appointment> getAppointmentsForDoctorOnDate(Long doctorId, LocalDate date) {
+        LocalDateTime start = date.atStartOfDay();
+        LocalDateTime end = date.atTime(23, 59);
+        return appointmentRepository.findByDoctorIdAndStartTimeBetween(doctorId, start, end);
+    }
+
+    @Transactional
+    public Appointment confirmAppointment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        appointment.setStatus("CONFIRMED");
+        return appointmentRepository.save(appointment);
+    }
+
+    @Transactional
+    public Appointment markEmergency(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        appointment.setStatus("EMERGENCY");
+        return appointmentRepository.save(appointment);
     }
 }
