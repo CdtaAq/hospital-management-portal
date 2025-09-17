@@ -1,0 +1,15 @@
+<header class="container" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 0;">
+  <h1>{{ title }}</h1>
+  <nav>
+    <a routerLink="/doctors" routerLinkActive="active">Doctors</a> |
+    <a routerLink="/diseases" routerLinkActive="active">Diseases</a> |
+    <a routerLink="/patients" routerLinkActive="active">Patients</a> |
+    <a routerLink="/appointments" routerLinkActive="active">Appointments</a> |
+    <a routerLink="/payments" routerLinkActive="active">Payments</a> |
+    <a routerLink="/summary" routerLinkActive="active">Summary</a>
+  </nav>
+</header>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
