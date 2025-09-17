@@ -1,0 +1,7 @@
+<div *ngIf="doctor">
+  <h2>{{doctor.name}} — {{doctor.specialty}}</h2>
+  <p>Experience: {{doctor.experience}} years</p>
+  <p>Fees: {{doctor.fees}}</p>
+  <p>Rating: {{doctor.rating || 'N/A'}}</p>
+  <button (click)="goEdit()">Edit</button>
+</div>
