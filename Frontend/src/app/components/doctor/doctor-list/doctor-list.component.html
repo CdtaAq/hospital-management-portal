@@ -1,0 +1,8 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Doctors</h2>
+  <ul>
+    <li *ngFor="let d of doctors">
+      {{d.name}} ({{d.specialty}}) - Fee: {{d.fees}}
+    </li>
+  </ul>
+</div>
