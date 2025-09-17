@@ -1,0 +1,30 @@
+<div>
+  <h2>{{ editId ? 'Edit Patient' : 'New Patient' }}</h2>
+  <form (ngSubmit)="save()">
+    <div>
+      <label>Name</label>
+      <input [(ngModel)]="model.name" name="name" required />
+    </div>
+    <div>
+      <label>Age</label>
+      <input type="number" [(ngModel)]="model.age" name="age" />
+    </div>
+    <div>
+      <label>Gender</label>
+      <select [(ngModel)]="model.gender" name="gender">
+        <option value="">Select</option>
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
+        <option value="OTHER">Other</option>
+      </select>
+    </div>
+    <div>
+      <label>Disease</label>
+      <select [(ngModel)]="model.diseaseId" name="diseaseId">
+        <option *ngFor="let d of diseases" [value]="d.id">{{d.name}}</option>
+      </select>
+    </div>
+    <button type="submit">{{ editId ? 'Update' : 'Create' }}</button>
+  </form>
+  <p>{{message}}</p>
+</div>
