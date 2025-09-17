@@ -1,0 +1,19 @@
+<div>
+  <h2>Payments</h2>
+  <table class="table-auto">
+    <thead>
+      <tr><th>ID</th><th>Appointment</th><th>Amount</th><th>Status</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of payments">
+        <td>{{p.id}}</td>
+        <td>{{p.appointmentId}}</td>
+        <td>{{p.amount}}</td>
+        <td>{{p.status}}</td>
+        <td>
+          <button *ngIf="p.status !== 'PAID'" (click)="markPaid(p)">Mark Paid</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
