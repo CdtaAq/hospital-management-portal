@@ -1,0 +1,19 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Patients</h2>
+  <table class="table-auto border w-full">
+    <thead>
+      <tr>
+        <th class="border px-2 py-1">Name</th>
+        <th class="border px-2 py-1">Age</th>
+        <th class="border px-2 py-1">Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of patients">
+        <td class="border px-2 py-1">{{p.name}}</td>
+        <td class="border px-2 py-1">{{p.age}}</td>
+        <td class="border px-2 py-1">{{p.gender}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
