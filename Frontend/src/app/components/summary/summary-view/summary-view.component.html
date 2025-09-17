@@ -1,0 +1,13 @@
+<div class="p-4" *ngIf="summary">
+  <h2 class="text-xl font-bold mb-4">Patient Summary (ID: {{summary.patientId}})</h2>
+
+  <p><strong>Total Appointments:</strong> {{summary.stats.totalAppointments}}</p>
+  <p><strong>Total Paid:</strong> {{summary.stats.totalPaid}}</p>
+
+  <h3 class="mt-4 font-semibold">Appointments</h3>
+  <ul>
+    <li *ngFor="let a of summary.appointments">
+      Appointment {{a.id}} - {{a.status}}
+    </li>
+  </ul>
+</div>
