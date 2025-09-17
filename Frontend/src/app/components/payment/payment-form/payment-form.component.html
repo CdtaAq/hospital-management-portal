@@ -1,0 +1,15 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Payment</h2>
+  <form (ngSubmit)="submit()" #f="ngForm">
+    <div>
+      <label>Appointment Id:</label>
+      <input [(ngModel)]="payment.appointmentId" name="appointmentId" required />
+    </div>
+    <div>
+      <label>Amount:</label>
+      <input [(ngModel)]="payment.amount" name="amount" required />
+    </div>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-1 mt-2">Submit</button>
+  </form>
+  <p class="mt-2 text-green-600">{{message}}</p>
+</div>
