@@ -1,0 +1,23 @@
+<div class="p-4">
+  <h2>{{ editId ? 'Edit Doctor' : 'New Doctor' }}</h2>
+  <form (ngSubmit)="save()">
+    <div>
+      <label>Name</label>
+      <input [(ngModel)]="model.name" name="name" required />
+    </div>
+    <div>
+      <label>Specialty</label>
+      <input [(ngModel)]="model.specialty" name="specialty" required />
+    </div>
+    <div>
+      <label>Experience (years)</label>
+      <input type="number" [(ngModel)]="model.experience" name="experience" />
+    </div>
+    <div>
+      <label>Fees</label>
+      <input type="number" [(ngModel)]="model.fees" name="fees" />
+    </div>
+    <button type="submit">{{ editId ? 'Update' : 'Create' }}</button>
+  </form>
+  <p>{{message}}</p>
+</div>
