@@ -1,27 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Payment } from '../core/models/payment.model';
-import { environment } from '../../environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class PaymentService {
-  private readonly API = `${environment.apiUrl}/payments`;
+  private apiUrl = 'http://localhost:8080/api/payments';
+
   constructor(private http: HttpClient) {}
 
-  create(payload: Partial<Payment>): Observable<Payment> {
-    return this.http.post<Payment>(this.API, payload);
+  createPaymentIntent(amount: number, currency: string = 'usd'): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create-payment-intent`, { amount, currency });
   }
-
-  markPaid(id: number): Observable<Payment> {
-    return this.http.put<Payment>(`${this.API}/${id}/mark-paid`, {});
-  }
-
-  get(id: number) { return this.http.get<Payment>(`${this.API}/${id}`); }
-
-  findByPatient(patientId: number) {
-    return this.http.get<Payment[]>(`${this.API}?patientId=${patientId}`);
-  }
-
-  delete(id: number) { return this.http.delete<void>(`${this.API}/${id}`); }
 }
