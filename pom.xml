@@ -69,6 +69,13 @@
             <optional>true</optional>
         </dependency>
 
+         <dependency>
+  <groupId>com.stripe</groupId>
+  <artifactId>stripe-java</artifactId>
+  <version>24.19.0</version>
+<        </dependency>
+
+
         <!-- For parsing dates and times (JSR-310 support) -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
